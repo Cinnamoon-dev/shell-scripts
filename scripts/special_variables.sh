@@ -10,6 +10,8 @@ echo "Operador para executar o segundo comando caso o primeiro seja executado co
 echo "Operador para executar o segundo comando caso o primeiro seja executado com falha: ||" 
 echo "Operador que redireciona a saída de um comando para outro arquivo: >"
 
+echo "Usando o operador \"ternário\": command && if-true || if-false(else)"
+
 # ---------------------------------------------------------------------------------------------------------- #
 # Problema 1: Saber diferenciar: sessão atual != sessão script
 # Usar a variável especial $$ e diferenciar pelo PID
