@@ -63,3 +63,21 @@ unset buzz
 unset arr
 unset arr1
 unset vol # error, can not delete constant until session finishes
+
+# ---------------------------------------------------------------------------- #
+# OPERATIONS
+
+# arithmetic operations
+# $((arithmetic expression))
+echo "sum: $(($n1+$n2))"
+echo "minus: $(($n1-$n2))"
+echo "multiply: $(($n1*$n2))"
+
+# divisão precisa ser inteira, senão retorna 0
+echo "division: $(($n2/$n1))"
+
+# comandos
+# $(command)
+
+declare output=$(cat /etc/shells | grep tmux)
+echo "$output"
