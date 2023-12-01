@@ -68,6 +68,7 @@ unset vol # error, can not delete constant until session finishes
 # OPERATIONS
 
 # arithmetic operations
+# Store the result and returns it
 # $((arithmetic expression))
 echo "sum: $(($n1+$n2))"
 echo "minus: $(($n1-$n2))"
@@ -76,8 +77,26 @@ echo "multiply: $(($n1*$n2))"
 # divisão precisa ser inteira, senão retorna 0
 echo "division: $(($n2/$n1))"
 
-# comandos
+# commands
+# Stores the output and then returns it
 # $(command)
 
 declare output=$(cat /etc/shells | grep tmux)
 echo "$output"
+
+# value
+# Returns the value
+# The same as $value, unless its an array or you want something else
+# ${value}
+
+val=("pedro" "daniel" "henrique" "guilherme")
+echo ${val[0]} # pedro
+echo ${val[1]} # daniel
+echo ${val[@]} # pedro daniel henrique guilherme
+
+echo ${#val[1]} # 6 (length of "daniel")
+echo ${!val[0]} # this translates to $pedro
+
+#Use it for positional params with more than one digit
+#$1 == ${1}
+#$10 != ${10} It does not work without the brackets
