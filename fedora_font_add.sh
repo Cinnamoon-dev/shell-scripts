@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# -d -> the name of the folder you will create in /usr/local/share/fonts
+# -f -> file path of the font you want to add
+
 declare -i d=0
 declare -i f=0
 
