@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# TODO
+# Use find to list all the files to compile in a directory and awk to get the names separately
+
 libs=(
     lib1.c
     lib2.c
