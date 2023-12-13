@@ -2,6 +2,7 @@
 
 # TODO
 # Use find to list all the files to compile in a directory and awk to get the names separately
+#  find . -name "*.c"
 
 libs=(
     lib1.c
