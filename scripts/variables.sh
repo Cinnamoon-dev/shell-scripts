@@ -100,3 +100,6 @@ echo ${!val[0]} # this translates to $pedro
 #Use it for positional params with more than one digit
 #$1 == ${1}
 #$10 != ${10} It does not work without the brackets
+
+# This one is the same of $@, but if the arguments passed have spaces it will pass the arguments with spaces correctly instead of separating the arg with spaces into two or more
+echo $*
