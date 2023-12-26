@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+check_args() {
+    echo $@ | grep --quiet -- "-d"
+    if [ $? -gt 0 ]; then
+        echo "Choose the library folder"
+        return 1
+    fi
+    
+    echo $@ | grep --quiet ".c"
+    if [[ $? -gt 0 ]]; then
+        echo "Choose the main file"
+        return 1
+    fi
+
+}
+
+check_args $@
+
 # TODO
 # Use find to list all the files to compile in a directory and awk to get the names separately
 # find . -name "*.c"
