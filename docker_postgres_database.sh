@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script runs commands inside a container, if you don't or can't install postgres 
+# This script runs commands inside a container, if you don't want to or can't install postgres 
 # put it to run inside a container and then use this script to communicate with it.
 #
 # It is recommended to name the script to 'psql', so you can run
