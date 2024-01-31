@@ -1,46 +1,102 @@
 #!/usr/bin/env bash
+# compile -d ./libs -n a.out main.py
 
-check_args() {
-    echo $@ | grep --quiet -- "-d"
-    if [ $? -gt 0 ]; then
-        echo "Choose the library folder"
-        return 1
-    fi
-    
-    echo $@ | grep --quiet ".c"
-    if [[ $? -gt 0 ]]; then
-        echo "Choose the main file"
-        return 1
-    fi
-
+_usage() {
+    exit 1
 }
 
-check_args $@
+main() {
+    # Positional Arguments
+    local position=0
+    local main_file=
 
-# TODO
-# Use find to list all the files to compile in a directory and awk to get the names separately
-# find . -name "*.c"
-# use pwd to find directory
+    # Flags
+    local directory=
+    local name=
 
-libs=(
-    lib1.c
-    lib2.c
-)
+    while [[ "${#}" -gt 0 ]]; do
+        # This switch case checks if the current arg is a flag
+        case "${1}" in
 
-for i in ${libs[@]}; do
-    gcc i -c
-done
+        -h|--help|help)
+            echo "help"
+            exit 0
+            ;;
 
-# TODO
-# Generalize the cases for -o
-# Maybe using the --print-file-log from gcc and editing the last character from .c to .o
+        -d|--directory)
+            directory="${2:-}"
+            
+            if [ -z "${directory}" ]; then
+                printf "%s must have a value\n\n" "${1}" 
+                exit 0
+            fi
 
-gcc lib1.c -c
-gcc lib2.c -c
-gcc main.c -c
-gcc main.o lib1.o lib2.o -o main
+            shift 2
+            ;;
+        
+        -n|--name)
+            name="${2:-}"
 
-clear
-./main
+            # Checks if it is not empty
+            [[ -z "${name}" ]] && printf "%s must have a value\n\n" "${1}" && printf "help\n" && exit 0
 
-rm main.o lib1.o lib2.o main
+            shift 2
+            ;;
+
+        *)
+            # This switch case treats the positional argument case
+            case "${position}" in
+            
+            0)
+                main_file="${1}"
+                
+                position=1
+                shift
+                ;;
+            
+            *)
+                printf "unknown arg %s\n" "${!position}"
+                exit 1
+                ;;
+
+            esac
+        esac
+    done
+
+    echo "${main_file}"
+    echo "${directory}"
+    echo "${name}"
+
+
+# # TODO
+# # Use find to list all the files to compile in a directory and awk to get the names separately
+# # find . -name "*.c"
+# # use pwd to find directory
+
+# libs=(
+#     lib1.c
+#     lib2.c
+# )
+
+# for i in ${libs[@]}; do
+#     gcc i -c
+# done
+
+# # TODO
+# # Generalize the cases for -o
+# # Maybe using the --print-file-log from gcc and editing the last character from .c to .o
+
+# gcc lib1.c -c
+# gcc lib2.c -c
+# gcc main.c -c
+# gcc main.o lib1.o lib2.o -o main
+
+# clear
+# ./main
+
+# rm main.o lib1.o lib2.o main
+
+     return 0
+}
+
+main ${@:-}
