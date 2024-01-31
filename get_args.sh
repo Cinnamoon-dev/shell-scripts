@@ -47,7 +47,13 @@ main() {
                 position=1
                 shift
                 ;;
-            
+
+           1) 
+                country="${1}"
+                position=2
+                shift
+                ;;
+
             *)
                 printf "unknown arg %s\n" "${!position}"
                 exit 1
