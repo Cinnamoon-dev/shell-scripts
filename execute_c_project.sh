@@ -63,35 +63,30 @@ main() {
         esac
     done
 
-    echo "main file: ${main_file}"
-    echo "dir: ${directory}"
-    echo "name: ${name}"
-
     declare lib_files=()
 
     mapfile -t < <(find $directory | grep -F .c)
     read -a lib_files <<< $(echo ${MAPFILE[@]})
 
-    echo "lib_files: ${lib_files[@]}"
+    for i in ${lib_files[@]}; do
+        gcc $i -c
+    done
 
-# TODO
-# compile everything
-#for i in ${lib_files[@]}; do
-#    gcc i -c
-#done
+    gcc -c $main_file
+    gcc $(find | grep -F .o) -o $name
 
-# # TODO
-# # Generalize the cases for -o
-# # Maybe using the --print-file-log from gcc and editing the last character from .c to .o
+    # TODO
+    # add a show warnings flag to disable or enable showing compilation messages
+    clear
+    ./$name
+    
+    # TODO
+    # Create a better way to get the files we have just compiled
+    # The way it is now, if the runnable file gcc -o main has a ".o" the runnable file is also deleted and the program
+    # does not executes because the executable was not found
+    rm $(find | grep -F .o)
 
-# gcc main.o lib1.o lib2.o -o main
-
-# clear
-# ./main
-
-# rm main.o lib1.o lib2.o main
-
-     return 0
+    return 0
 }
 
 main ${@:-}
