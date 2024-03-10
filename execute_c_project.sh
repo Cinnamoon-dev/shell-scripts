@@ -2,6 +2,8 @@
 # compile -d ./libs -n a.out main.c
 
 _usage() {
+    # TODO
+    # Write a --help message
     exit 1
 }
 
