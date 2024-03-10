@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# compile -d ./libs -n a.out main.py
+# compile -d ./libs -n a.out main.c
 
 _usage() {
     exit 1
@@ -63,32 +63,27 @@ main() {
         esac
     done
 
-    echo "${main_file}"
-    echo "${directory}"
-    echo "${name}"
+    echo "main file: ${main_file}"
+    echo "dir: ${directory}"
+    echo "name: ${name}"
 
+    declare lib_files=()
 
-# # TODO
-# # Use find to list all the files to compile in a directory and awk to get the names separately
-# # find . -name "*.c"
-# # use pwd to find directory
+    mapfile -t < <(find $directory | grep -F .c)
+    read -a lib_files <<< $(echo ${MAPFILE[@]})
 
-# libs=(
-#     lib1.c
-#     lib2.c
-# )
+    echo "lib_files: ${lib_files[@]}"
 
-# for i in ${libs[@]}; do
-#     gcc i -c
-# done
+# TODO
+# compile everything
+#for i in ${lib_files[@]}; do
+#    gcc i -c
+#done
 
 # # TODO
 # # Generalize the cases for -o
 # # Maybe using the --print-file-log from gcc and editing the last character from .c to .o
 
-# gcc lib1.c -c
-# gcc lib2.c -c
-# gcc main.c -c
 # gcc main.o lib1.o lib2.o -o main
 
 # clear
