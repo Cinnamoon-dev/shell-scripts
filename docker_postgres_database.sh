@@ -15,4 +15,4 @@
 
 readonly container_name="postgres_container"
 
-docker exec -it $container_name psql $*
+docker exec -it $container_name psql "$@"
